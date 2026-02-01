@@ -60,7 +60,12 @@
     #noBtn {
         background: #ffffff3f;
         color: white;
-        position: relative;
+    }
+
+    /* Disabled No button */
+    #noBtn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 
     @keyframes fadeIn {
@@ -89,10 +94,11 @@
 
 <div class="btnContainer">
     <button id="yesBtn">Yes, Forever ❤️</button>
-    <button id="noBtn">No 😔</button>
+    <button id="noBtn" disabled>No 😔</button>
 </div>
 
 <script>
+    /* Floating hearts */
     setInterval(() => {
         let heart = document.createElement("div");
         heart.innerHTML = "💕";
@@ -104,16 +110,13 @@
         setTimeout(() => heart.remove(), 5000);
     }, 500);
 
-    document.getElementById("noBtn").addEventListener("mouseover", function () {
-        let x = Math.random() * 300 - 150;
-        let y = Math.random() * 300 - 150;
-        this.style.transform = `translate(${x}px, ${y}px)`;
-    });
-
+    /* Yes button action */
     document.getElementById("yesBtn").addEventListener("click", function () {
         document.body.innerHTML = `
             <h1 style="font-size:3rem;">💖 Diiyyuuu, You Said YES! 💖</h1>
-            <p style="font-size:1.5rem;">Forever starts now… and dhruv-loves-diiyyuuu.com will always remember this moment. ❤️</p>
+            <p style="font-size:1.5rem;">
+                Forever starts now… and dhruv-loves-diiyyuuu.com will always remember this moment. ❤️
+            </p>
         `;
     });
 </script>
