@@ -13,15 +13,18 @@
         height: 100vh;
         overflow: hidden;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
         color: white;
     }
 
+    .container {
+        z-index: 2;
+    }
+
     h1 {
-        font-size: 2.8rem;
+        font-size: 2.6rem;
         margin-bottom: 10px;
         animation: fadeIn 2s ease-in-out;
     }
@@ -36,6 +39,7 @@
         margin-top: 30px;
         display: flex;
         gap: 20px;
+        justify-content: center;
     }
 
     button {
@@ -60,64 +64,93 @@
     #noBtn {
         background: #ffffff3f;
         color: white;
-    }
-
-    /* Disabled No button */
-    #noBtn:disabled {
         opacity: 0.5;
         cursor: not-allowed;
+    }
+
+    /* Photo section */
+    .photo-container {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        animation: fadeIn 2s ease-in-out;
+        z-index: 2;
+    }
+
+    .photo-container img {
+        width: 320px;
+        max-width: 85%;
+        border-radius: 22px;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.45);
+    }
+
+    /* Rose petals */
+    .petal {
+        position: absolute;
+        top: -50px;
+        font-size: 24px;
+        animation: fall 6s linear infinite;
+        opacity: 0.9;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    @keyframes fall {
+        0% {
+            transform: translateX(0) translateY(0) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(80px) translateY(110vh) rotate(360deg);
+            opacity: 0;
+        }
     }
 
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
-
-    .heart {
-        position: absolute;
-        color: white;
-        animation: floatUp 5s linear infinite;
-        opacity: 0.7;
-    }
-
-    @keyframes floatUp {
-        0% { transform: translateY(0); opacity: 1; }
-        100% { transform: translateY(-600px); opacity: 0; }
-    }
 </style>
 </head>
 
 <body>
 
-<h1>💕 Diiyyuuu, Will You Be My Valentine Forever? 💕</h1>
-<p>From <b>dhruv-loves-diiyyuuu.com</b> — because loving you isn’t a moment, it’s forever. 💗</p>
+<div class="container" id="mainContent">
+    <h1>💕 Diiyyuuu, Will You Be My Valentine Forever? 💕</h1>
+    <p>Because loving you isn’t a moment, it’s forever 💗</p>
 
-<div class="btnContainer">
-    <button id="yesBtn">Yes, Forever ❤️</button>
-    <button id="noBtn" disabled>No 😔</button>
+    <div class="btnContainer">
+        <button id="yesBtn">Yes, Forever ❤️</button>
+        <button id="noBtn" disabled>No 😔</button>
+    </div>
+</div>
+
+<!-- After YES -->
+<div class="photo-container" id="photoSection">
+    <h1>💖 Our Forever 💖</h1>
+
+    <!-- 👉 PUT ONLY ONE PHOTO -->
+    <img src="ourphoto.jpg" alt="Us together ❤️">
 </div>
 
 <script>
-    /* Floating hearts */
-    setInterval(() => {
-        let heart = document.createElement("div");
-        heart.innerHTML = "💕";
-        heart.className = "heart";
-        heart.style.left = Math.random() * window.innerWidth + "px";
-        heart.style.fontSize = (20 + Math.random() * 30) + "px";
-        document.body.appendChild(heart);
-
-        setTimeout(() => heart.remove(), 5000);
-    }, 500);
-
-    /* Yes button action */
     document.getElementById("yesBtn").addEventListener("click", function () {
-        document.body.innerHTML = `
-            <h1 style="font-size:3rem;">💖 Diiyyuuu, You Said YES! 💖</h1>
-            <p style="font-size:1.5rem;">
-                Forever starts now… and dhruv-loves-diiyyuuu.com will always remember this moment. ❤️
-            </p>
-        `;
+        document.getElementById("mainContent").style.display = "none";
+        document.getElementById("photoSection").style.display = "flex";
+
+        // Rose petals falling
+        setInterval(() => {
+            let petal = document.createElement("div");
+            petal.className = "petal";
+            petal.innerHTML = "🌹";
+            petal.style.left = Math.random() * window.innerWidth + "px";
+            petal.style.fontSize = (18 + Math.random() * 22) + "px";
+            petal.style.animationDuration = (4 + Math.random() * 3) + "s";
+            document.body.appendChild(petal);
+
+            setTimeout(() => petal.remove(), 7000);
+        }, 300);
     });
 </script>
 
